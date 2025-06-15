@@ -14,6 +14,12 @@
 **/[Ll]og/
 **/[Ll]ogs/
 
+# Specific file types that should be ignored
+*.dll
+*.pdb
+*.exe
+*.cache
+*.deps.json
 
 # Visual Studio 2015/2017 cache/options directory
 .vs/
