@@ -1,11 +1,12 @@
+using ErrorOr;
 using MediatR;
 
 namespace Project.Application.Accounts.Commands.CreateAccount;
 
-public class CreateAccountCommandHandler: IRequestHandler<CreateAccountCommand, int>
+public class CreateAccountCommandHandler : IRequestHandler<CreateAccountCommand, ErrorOr<int>>
 {
-    public Task<int> Handle(CreateAccountCommand request, CancellationToken cancellationToken)
+    public async Task<ErrorOr<int>> Handle(CreateAccountCommand request, CancellationToken cancellationToken)
     {
-        return Task.FromResult(123);
+        return 124;
     }
 }
