@@ -21,10 +21,10 @@ public class AccountsController : ControllerBase
     {
         var command = new CreateAccountCommand(request.Name, request.Type.ToString());
 
-        var CreateAccountResult = await _mediator.Send(command);
+        var createAccountResult = await _mediator.Send(command);
 
-        return CreateAccountResult.Match(
-            accountId => Ok(new AccountResponse(accountId, request.Name, request.Type)), 
+        return createAccountResult.Match(
+            account => Ok(new AccountResponse(account.Id, request.Name, request.Type)), 
             error => Problem());
     }
 }

@@ -1,12 +1,29 @@
 using ErrorOr;
 using MediatR;
+using Project.Application.Common.Interfaces;
+using Project.Domain.Accounts;
 
 namespace Project.Application.Accounts.Commands.CreateAccount;
 
-public class CreateAccountCommandHandler : IRequestHandler<CreateAccountCommand, ErrorOr<int>>
+public class CreateAccountCommandHandler : IRequestHandler<CreateAccountCommand, ErrorOr<Account>>
 {
-    public async Task<ErrorOr<int>> Handle(CreateAccountCommand request, CancellationToken cancellationToken)
+    private readonly IAccountsRepository _accountsRepository;
+
+    public CreateAccountCommandHandler(IAccountsRepository accountsRepository)
     {
-        return 124;
+        _accountsRepository = accountsRepository;
+    }
+
+    public async Task<ErrorOr<Account>> Handle(CreateAccountCommand request, CancellationToken cancellationToken)
+    {
+        var account = new Account
+        {
+            Id = 123
+        };
+
+        _accountsRepository.AddAccount(account);
+        
+        return account;
     }
 }
+
