@@ -21,7 +21,6 @@ public class CreateAccountCommandHandler : IRequestHandler<CreateAccountCommand,
     {
         var account = new Account
         {
-            Id = (new Random()).Next(100),
             Name = request.AccountName,
             Type = request.AccountType
         };
