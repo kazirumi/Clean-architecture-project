@@ -4,5 +4,6 @@ namespace Project.Application.Common.Interfaces;
 
 public interface IAccountsRepository
 {
-    void AddAccount(Account account); 
+    Task AddAccountAsync(Account account); 
+    Task<Account?> GetAccountAsync(int accountId); 
 }
