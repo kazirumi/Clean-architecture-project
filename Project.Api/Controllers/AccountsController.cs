@@ -1,6 +1,7 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Project.Application.Accounts.Commands.CreateAccount;
+using Project.Application.Accounts.Queries.GetAccount;
 using Project.Contracts.Accounts;
 
 namespace Project.Api.Controllers;
@@ -21,10 +22,23 @@ public class AccountsController : ControllerBase
     {
         var command = new CreateAccountCommand(request.Name, request.Type.ToString());
 
-        var CreateAccountResult = await _mediator.Send(command);
+        var createAccountResult = await _mediator.Send(command);
 
-        return CreateAccountResult.Match(
-            accountId => Ok(new AccountResponse(accountId, request.Name, request.Type)), 
+        return createAccountResult.Match(
+            account => Ok(new AccountResponse(account.Id, request.Name, request.Type)), 
+            error => Problem());
+    }
+    
+    [HttpGet]
+    [Route("{accountId:int}")]
+    public async Task<IActionResult> CreateAccount(int accountId)
+    {
+        var command = new GetAccountQuery(accountId);
+
+        var getAccountResult = await _mediator.Send(command);
+
+        return getAccountResult.Match(
+            account => Ok(new AccountResponse(account.Id, account.Name, Enum.Parse<AccountType>(account.Type))), 
             error => Problem());
     }
 }
