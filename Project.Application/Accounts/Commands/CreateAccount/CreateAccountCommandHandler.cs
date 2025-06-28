@@ -8,13 +8,12 @@ namespace Project.Application.Accounts.Commands.CreateAccount;
 public class CreateAccountCommandHandler : IRequestHandler<CreateAccountCommand, ErrorOr<Account>>
 {
     private readonly IAccountsRepository _accountsRepository;
-    // private readonly IUnitOfWork _unitOfWork;
+    private readonly IUnitOfWork _unitOfWork;
 
-    public CreateAccountCommandHandler(IAccountsRepository accountsRepository)
+    public CreateAccountCommandHandler(IAccountsRepository accountsRepository, IUnitOfWork unitOfWork)
     {
-        // , IUnitOfWork unitOfWork
         _accountsRepository = accountsRepository;
-        // _unitOfWork = unitOfWork;
+        _unitOfWork = unitOfWork;
     }
 
     public async Task<ErrorOr<Account>> Handle(CreateAccountCommand request, CancellationToken cancellationToken)
@@ -27,7 +26,7 @@ public class CreateAccountCommandHandler : IRequestHandler<CreateAccountCommand,
 
         await _accountsRepository.AddAccountAsync(account);
 
-        // await _unitOfWork.CommitChangesAsync();
+        await _unitOfWork.CommitChangesAsync();
         
         return account;
     }
