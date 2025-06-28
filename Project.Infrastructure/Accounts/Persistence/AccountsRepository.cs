@@ -17,8 +17,6 @@ public class AccountsRepository : IAccountsRepository
     public async Task AddAccountAsync(Account account)
     {
         await _dbContext.Accounts.AddAsync(account);
-        
-        await _dbContext.SaveChangesAsync();
     }
 
     public async Task<Account?> GetAccountAsync(int accountId)

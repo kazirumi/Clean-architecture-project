@@ -13,6 +13,7 @@ public static class DependencyInjection
     {
         services.AddDbContext<AccountingLedgerDbContext>(options => options.UseSqlServer("Server=NADIA;Database=AccountingLedger;Integrated Security=true;TrustServerCertificate=true;"));
         services.AddScoped<IAccountsRepository, AccountsRepository>();
+        services.AddScoped<IUnitOfWork>(serviceProvider=>serviceProvider.GetRequiredService<AccountingLedgerDbContext>());
         return services;
     }
 }
