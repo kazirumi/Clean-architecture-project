@@ -1,3 +1,4 @@
+using Ardalis.SmartEnum;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Project.Application.Accounts.Commands.CreateAccount;
@@ -10,7 +11,7 @@ namespace Project.Api.Controllers;
 [Route("accounts")]
 public class AccountsController : ControllerBase
 {
-    public readonly ISender _mediator;
+    private readonly ISender _mediator;
 
     public AccountsController(ISender mediator)
     {
@@ -20,7 +21,11 @@ public class AccountsController : ControllerBase
     [HttpPost]
     public async Task<IActionResult> CreateAccount(CreateAccountRequest request)
     {
-        var command = new CreateAccountCommand(request.Name, request.Type.ToString());
+        if (!Domain.Accounts.AccountType.TryFromName(request.Type.ToString(), out var accountType))
+        {
+            return Problem(statusCode: StatusCodes.Status400BadRequest, title: "Invalid account type", detail: "Account type must be one of the following: Asset, Liability, Equity, Revenue, Expense");
+        }
+        var command = new CreateAccountCommand(request.Name, accountType);
 
         var createAccountResult = await _mediator.Send(command);
 
@@ -31,14 +36,14 @@ public class AccountsController : ControllerBase
     
     [HttpGet]
     [Route("{accountId:int}")]
-    public async Task<IActionResult> CreateAccount(int accountId)
+    public async Task<IActionResult> GetAccount(int accountId)
     {
         var command = new GetAccountQuery(accountId);
 
         var getAccountResult = await _mediator.Send(command);
 
         return getAccountResult.Match(
-            account => Ok(new AccountResponse(account.Id, account.Name, Enum.Parse<AccountType>(account.Type))), 
+            account => Ok(new AccountResponse(account.Id, account.Name, Enum.Parse<AccountType>(account.Type.Name))), 
             error => Problem());
     }
 }

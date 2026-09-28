@@ -1,7 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Project.Application.Common.Interfaces;
-using Project.Infrastructure.Accounts;
 using Project.Infrastructure.Accounts.Persistence;
 using Project.Infrastructure.Common.Persistence;
 

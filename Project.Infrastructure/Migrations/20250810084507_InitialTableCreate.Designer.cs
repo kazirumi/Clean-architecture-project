@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Project.Infrastructure.Common.Persistence;
 
@@ -10,9 +11,11 @@ using Project.Infrastructure.Common.Persistence;
 namespace Project.Infrastructure.Migrations
 {
     [DbContext(typeof(AccountingLedgerDbContext))]
-    partial class AccountingLedgerDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250810084507_InitialTableCreate")]
+    partial class InitialTableCreate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

@@ -18,11 +18,7 @@ public class CreateAccountCommandHandler : IRequestHandler<CreateAccountCommand,
 
     public async Task<ErrorOr<Account>> Handle(CreateAccountCommand request, CancellationToken cancellationToken)
     {
-        var account = new Account
-        {
-            Name = request.AccountName,
-            Type = request.AccountType
-        };
+        var account = new Account(name: request.AccountName,type:request.AccountType);
 
         await _accountsRepository.AddAccountAsync(account);
 

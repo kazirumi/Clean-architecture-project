@@ -4,10 +4,19 @@ namespace Project.Domain.Accounts;
 
 public class Account
 {
-    [Key]
-    public int Id { get; set; }
+    public int Id { get; }
+    public string Name { get; private set;  }
+    public AccountType Type { get; private set; }
 
-    public string Name { get; set; }
-    public string Type { get; set; }
-    
+    public Account(string name,
+        AccountType type)
+    {
+        Name = name;
+        Type = type;
+    }
+
+    private Account()
+    {
+        // for EF Core
+    }
 }

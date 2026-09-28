@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Project.Infrastructure.Common.Persistence;
 
@@ -10,9 +11,11 @@ using Project.Infrastructure.Common.Persistence;
 namespace Project.Infrastructure.Migrations
 {
     [DbContext(typeof(AccountingLedgerDbContext))]
-    partial class AccountingLedgerDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250703025230_updated_config_for_account_from_fluentvalidation")]
+    partial class updated_config_for_account_from_fluentvalidation
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
